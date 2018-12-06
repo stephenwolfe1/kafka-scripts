@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kafka-client
+spec:
+  containers:
+  - command:
+    - sh
+    - -c
+    - exec tail -f /dev/null
+    image: confluentinc/cp-kafka:latest
+    imagePullPolicy: IfNotPresent
+    name: kafka-client
+    env:
+    - name: ZOOKEEPER
+      value: zk-cs.zookeeper.svc.cluster.local:2181
+    - name: BOOTSTRAP
+      value: bootstrap.kafka.svc.cluster.local:9092
+  restartPolicy: Always
